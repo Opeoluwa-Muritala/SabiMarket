@@ -1,0 +1,17 @@
+Tab Navigation - import androidx.navigation.compose
+HomeScreen (NavigationSuiteScaffold) - import androidx.compose.material3
+BottomNavigation (Bottom Tab Bar) - import androidx.compose.material3
+NavigationItem (Shelf Tab) - import androidx.compose.material3
+NavigationItem (Invoice Tab) - import androidx.compose.material3
+NavigationItem (Expense Tab) - import androidx.compose.material3
+NavigationItem (Journal Tab) - import androidx.compose.material3
+NavigationItem (Todo Tab) - import androidx.compose.material3
+NavigationItem (Calendar Tab) - import androidx.compose.material3
+Shelf Stack Navigation (NavHost) - import androidx.navigation.compose
+Invoice Stack Navigation (NavHost) - import androidx.navigation.compose
+Expense Stack Navigation (NavHost) - import androidx.navigation.compose
+Journal Stack Navigation (NavHost) - import androidx.navigation.compose
+Todo Stack Navigation (NavHost) - import androidx.navigation.compose
+Calendar Stack Navigation (NavHost) - import androidx.navigation.compose
+Key Compose Components: Scaffold, BottomNavigation, NavigationItem, NavHost
+Import Package: androidx.compose.material3, androidx.navigation.compose
