@@ -10,6 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 
 /**
@@ -33,15 +35,16 @@ fun ClickableTextScreen(
             Text(
                 text = text,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 50.sp,
-                fontFamily = FontFamily.SansSerif
+                fontSize = 35.sp,
+                fontFamily = FontFamily.SansSerif,
             )
         }
         Text(
             text = "Click On Large Texts To Navigate Between Screens" +
                     "From main screen to details screen and vice versa",
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
         )
     }
 }

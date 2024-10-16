@@ -1,9 +1,11 @@
 package com.example.sabiapp.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.sabiapp.module.BottomNavItem
 import com.example.sabiapp.module.Destinations
 import com.example.sabiapp.presentation.screens.Home
 
@@ -14,15 +16,12 @@ import com.example.sabiapp.presentation.screens.Home
  * @author Opeoluwa Muritala
  */
 @Composable
-fun HomeGraph (){
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Destinations.HomeGraph)
+fun HomeGraph (navHostController: NavHostController){
+
+    NavHost(navController = navHostController, startDestination = BottomNavItem.ShelfTab.route)
     {
-        composable<Destinations.HomeGraph>{
-            Home(navController)
-        }
-        BottomNavGraph(navController)
-        DetailsGraph(navController)
+        BottomNavGraph(navHostController)
+        DetailsGraph(navHostController)
     }
 }
 

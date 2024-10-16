@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.example.sabiapp.navigation.HomeGraph
 import com.example.sabiapp.presentation.screens.Home
 import com.example.sabiapp.presentation.theme.SabiMarketTheme
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SabiMarketTheme {
-                HomeGraph()
+                Home(navController = rememberNavController())
             }
         }
     }

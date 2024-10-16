@@ -11,9 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.sabiapp.module.BottomNavItem
@@ -33,7 +36,7 @@ import com.example.sabiapp.navigation.HomeGraph
 
 
 @Composable
-fun Home(navController: NavController) {
+fun Home(navController: NavHostController) {
     val navItems: List<BottomNavItem> = listOf(
         BottomNavItem.ShelfTab,
         BottomNavItem.InvoiceTab,
@@ -42,26 +45,25 @@ fun Home(navController: NavController) {
         BottomNavItem.TodoTab,
         BottomNavItem.CalenderTab
     )
-    var selectedItem by remember {
+    var selectedItem by rememberSaveable {
         mutableIntStateOf(0)
     }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val adaptiveInfo = currentWindowAdaptiveInfo()
 
-    val customNavSuiteType = with(adaptiveInfo) {
-        if (navItems.any { it.route == currentDestination?.route }) {
-            NavigationSuiteType.None // Hides Bottom Tab Bar On Detail Screens
-        } else {
+    val NavSuiteType = with(adaptiveInfo) {
             if (windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.EXPANDED) {
                 NavigationSuiteType.NavigationDrawer // Show A Navigation Drawer For Larger Screens
             } else {
                 NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(adaptiveInfo)
             }
-        }
     } // Handles Bottom Tab Bar Behaviour
-
-
+    var customNavSuiteType = NavigationSuiteType.None
+    when (navItems.any { it.route == currentDestination?.route }) {
+        true -> customNavSuiteType = NavSuiteType
+        else -> NavigationSuiteType.None
+    }
     NavigationSuiteScaffold(
         layoutType = customNavSuiteType,
         navigationSuiteItems = {
@@ -76,16 +78,15 @@ fun Home(navController: NavController) {
                         Icon(
                             painterResource(id = item.icon),
                             contentDescription = navItems[index].route,
-                            tint = MaterialTheme.colorScheme.onSecondary
                         )
                     },
                     label = {
-                        Text(item.route)
+                        Text(item.route, fontSize = 10.sp)
                     },
                 )
             }
         }
     ) {
-        HomeGraph()
+        HomeGraph(navController)
     }
 }
