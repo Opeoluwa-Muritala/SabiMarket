@@ -1,49 +1,46 @@
 package com.example.sabiapp.navigation
 
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.navDeepLink
-import androidx.navigation.navigation
-import com.example.sabiapp.module.Destinations
 import com.example.sabiapp.module.DetailsItems
-import com.example.sabiapp.presentation.screens.components.ClickableTextScreen
+import com.example.sabiapp.presentation.screens.components.DetailsScreen
 
-fun NavGraphBuilder.DetailsGraph() {
+fun NavGraphBuilder.DetailsGraph(navController: NavController) {
     composable<DetailsItems.CalenderStack>(content = {
-        ClickableTextScreen(
+        DetailsScreen(
             text = "Calender Stack",
-            onTextClick = {}
+            onClick = {navController.navigateUp()}
         )
     })
     composable<DetailsItems.TodoStack> {
-        ClickableTextScreen(
+        DetailsScreen(
             text = "Todo Stack",
-            onTextClick = {}
+            onClick = {navController.navigateUp()}
         )
     }
     composable<DetailsItems.ShelfStack> {
-        ClickableTextScreen(
+        DetailsScreen(
             text = "Shelf Stack",
-            onTextClick = {}
+            onClick = {navController.navigateUp()}
         )
     }
     composable<DetailsItems.ExpenseStack> {
-        ClickableTextScreen(
+        DetailsScreen(
             text = "Expense Stack",
-            onTextClick = {}
+            onClick = {navController.navigateUp()}
         )
     }
     composable<DetailsItems.InvoiceStack> {
-        ClickableTextScreen(
+        DetailsScreen(
             text = "Invoice Stack",
-            onTextClick = {}
+            onClick = {navController.navigateUp()}
         )
     }
     composable<DetailsItems.JournalStack> {
-        ClickableTextScreen(
+        DetailsScreen(
             text = "Journal Stack",
-            onTextClick = {}
+            onClick = {navController.navigateUp()}
         )
     }
 }

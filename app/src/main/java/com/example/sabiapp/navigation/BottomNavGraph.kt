@@ -1,53 +1,48 @@
 package com.example.sabiapp.navigation
 
+import androidx.navigation.NavController
 import com.example.sabiapp.module.BottomNavItem
-
-package com.example.sabiapp.navigation
-
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.navDeepLink
-import androidx.navigation.navigation
-import com.example.sabiapp.module.Destinations
 import com.example.sabiapp.module.DetailsItems
 import com.example.sabiapp.presentation.screens.components.ClickableTextScreen
 
-fun NavGraphBuilder.BottomNavGraph() {
-    composable<BottomNavItem.CalenderTab>(content = {
+
+fun NavGraphBuilder.BottomNavGraph(navController: NavController) {
+    composable(route = BottomNavItem.CalenderTab.route,) {
         ClickableTextScreen(
             text = "Calender Tab",
-            onTextClick = {}
+            onTextClick = {navController.navigate(DetailsItems.CalenderStack)}
         )
-    })
-    composable<BottomNavItem.TodoTab> {
+    }
+    composable(route = BottomNavItem.TodoTab.route) {
         ClickableTextScreen(
             text = "Todo Tab",
-            onTextClick = {}
+            onTextClick = {navController.navigate(DetailsItems.TodoStack)}
         )
     }
-    composable<BottomNavItem.ShelfTab> {
+    composable(route = BottomNavItem.ShelfTab.route) {
         ClickableTextScreen(
             text = "Shelf Tab",
-            onTextClick = {}
+            onTextClick = {navController.navigate(DetailsItems.ShelfStack)}
         )
     }
-    composable<BottomNavItem.ExpenseTab> {
+    composable(route = BottomNavItem.ExpenseTab.route) {
         ClickableTextScreen(
             text = "Expense Tab",
-            onTextClick = {}
+            onTextClick = {navController.navigate(DetailsItems.ExpenseStack)}
         )
     }
-    composable<BottomNavItem.InvoiceTab> {
+    composable(route = BottomNavItem.InvoiceTab.route) {
         ClickableTextScreen(
             text = "Invoice Tab",
-            onTextClick = {}
+            onTextClick = {navController.navigate(DetailsItems.InvoiceStack)}
         )
     }
-    composable<BottomNavItem.JournalTab> {
+    composable( route = BottomNavItem.JournalTab.route) {
         ClickableTextScreen(
             text = "Journal Tab",
-            onTextClick = {}
+            onTextClick = {navController.navigate(DetailsItems.JournalStack)}
         )
     }
 }

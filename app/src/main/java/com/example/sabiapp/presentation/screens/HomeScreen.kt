@@ -1,42 +1,39 @@
 package com.example.sabiapp.presentation.screens
 
-import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationRail
-import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuite
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldLayout
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.sabiapp.module.BottomNavItem
-import com.example.sabiapp.module.Destinations
 import com.example.sabiapp.navigation.HomeGraph
+
+/**
+ * Home : StateFul Composable Displays Bottom Bar
+ *      Main Screen Of The App
+ * * [navItems] - List of Bottom Tab Items
+ *  * [selectedItem] - Keeps Track Of Currently Selected Bottom Tab Item
+ *  * [currentDestination], [navBackStackEntry] - To Know The Current Screen Displaying
+ *  * [adaptiveInfo] - Size and Orientation Of the screen.
+ * @param navController Used To Handle Navigation Between Screens
+ * @author Opeoluwa Muritala
+
+ */
+
 
 @Composable
 fun Home(navController: NavController) {
-    val navSuiteType = NavigationSuiteScaffoldDefaults
-        .calculateFromAdaptiveInfo(currentWindowAdaptiveInfo())
     val navItems: List<BottomNavItem> = listOf(
         BottomNavItem.ShelfTab,
         BottomNavItem.InvoiceTab,
@@ -48,46 +45,47 @@ fun Home(navController: NavController) {
     var selectedItem by remember {
         mutableIntStateOf(0)
     }
-    val adaptiveInfo = currentWindowAdaptiveInfo() // Custom configuration that shows a navigation drawer in large screens.
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val adaptiveInfo = currentWindowAdaptiveInfo()
+
     val customNavSuiteType = with(adaptiveInfo) {
-        if (windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.EXPANDED) {
-            NavigationSuiteType.NavigationDrawer
+        if (navItems.any { it.route == currentDestination?.route }) {
+            NavigationSuiteType.None // Hides Bottom Tab Bar On Detail Screens
         } else {
-            NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(adaptiveInfo)
+            if (windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.EXPANDED) {
+                NavigationSuiteType.NavigationDrawer // Show A Navigation Drawer For Larger Screens
+            } else {
+                NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(adaptiveInfo)
+            }
         }
-    }
+    } // Handles Bottom Tab Bar Behaviour
+
 
     NavigationSuiteScaffold(
         layoutType = customNavSuiteType,
         navigationSuiteItems = {
-            if (navItems.any { it.route == currentDestination?.route }) {
-                screens.forEachIndexed { index, item ->
-                    item(
-                        selected = index == selectedItem,
-                        onClick = {
-                            select(index)
-                            selectedItem = index
-                            navController.navigate(item.route)
-                        },
-                        icon = {
-                            Icon(
-                                painterResource(id = (if (index == selectedItem) item.filledIcon else item.icon)!!),
-                                contentDescription = screens[index].route,
-                                tint = if (index == selectedItem) iconColor else MaterialTheme.colorScheme.onSecondary
-                            )
-                        },
-                        label = {
-                            Text(item.route)
-                        },
-                        colors = color,
-                    )
-                }
+            navItems.forEachIndexed { index, item ->
+                item(
+                    selected = index == selectedItem,
+                    onClick = {
+                        selectedItem = index
+                        navController.navigate(item.route)
+                    },
+                    icon = {
+                        Icon(
+                            painterResource(id = item.icon),
+                            contentDescription = navItems[index].route,
+                            tint = MaterialTheme.colorScheme.onSecondary
+                        )
+                    },
+                    label = {
+                        Text(item.route)
+                    },
+                )
             }
         }
     ) {
-        content()
-    }
-
-    HomeGraph()
+        HomeGraph()
     }
 }
