@@ -22,10 +22,10 @@ import com.example.sabiapp.navigation.HomeGraph
 /**
  * Home : StateFul Composable Displays Bottom Bar
  *      Main Screen Of The App
- * * [navItems] - List of Bottom Tab Items
- *  * [selectedItem] - Keeps Track Of Currently Selected Bottom Tab Item
- *  * [currentDestination], [navBackStackEntry] - To Know The Current Screen Displaying
- *  * [adaptiveInfo] - Size and Orientation Of the screen.
+ * * navItems - List of Bottom Tab Items
+ *  * selectedItem - Keeps Track Of Currently Selected Bottom Tab Item
+ *  * currentDestination, navBackStackEntry - To Know The Current Screen Displaying
+ *  * adaptiveInfo - Size and Orientation Of the screen.
  * @param navController Used To Handle Navigation Between Screens
  * @author Opeoluwa Muritala
 

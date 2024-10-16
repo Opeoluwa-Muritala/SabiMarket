@@ -6,6 +6,14 @@ import androidx.navigation.compose.composable
 import com.example.sabiapp.module.DetailsItems
 import com.example.sabiapp.presentation.screens.components.DetailsScreen
 
+/**
+ * DetailsGraph - Extension function of [NavGraphBuilder] containing composable
+ *          and navigation instructions for all stack screens
+ * @param navController Handles Navigation Between Screens
+ * @author Opeoluwa Muritala
+ */
+
+
 fun NavGraphBuilder.DetailsGraph(navController: NavController) {
     composable<DetailsItems.CalenderStack>(content = {
         DetailsScreen(

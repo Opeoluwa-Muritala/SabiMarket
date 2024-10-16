@@ -21,8 +21,8 @@ fun HomeGraph (){
         composable<Destinations.HomeGraph>{
             Home(navController)
         }
-        BottomNavGraph()
-        DetailsGraph()
+        BottomNavGraph(navController)
+        DetailsGraph(navController)
     }
 }
 
